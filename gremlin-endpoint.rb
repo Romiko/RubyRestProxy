@@ -16,16 +16,7 @@ post '/raw-gremlin' do
 end
 
 # support some minimalistic exploration for the neo4j-jdbc driver
-  "cypher" : "http://localhost:7474/db/data/cypher",
-  "relationship_index" : "http://localhost:7474/db/data/index/relationship",
-  "node" : "http://localhost:7474/db/data/node",
-  "relationship_types" : "http://localhost:7474/db/data/relationship/types",
-  "neo4j_version" : "1.6.M03",
-  "batch" : "http://localhost:7474/db/data/batch",
-  "extensions_info" : "http://localhost:7474/db/data/ext",
-  "node_index" : "http://localhost:7474/db/data/index/node",
-  "reference_node" : "http://localhost:7474/db/data/node/0",
-  
+ 
 get '/' do
    { 
      :cypher => request.url + "cypher" ,
