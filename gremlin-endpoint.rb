@@ -19,5 +19,6 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver and neo4jClient RootApiResponse
  
 get '/' do
-	rest["/db/data"].get,{:accept => :json}
+	rest["/db/data/ext/GremlinPlugin/graphdb/execute_script"].get {:accept => :json}
+
 end
