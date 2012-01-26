@@ -18,8 +18,7 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver
  
 get '/' do
-	content-type = "application/json"
-	accept = "application/json"
+   {:content_type=>"application/json"}
    { 
    	 :data => request.url ,
      :cypher => request.url + "db/data/cypher" ,
