@@ -18,9 +18,11 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver
  
 get '/' do
+	content-type = "application/json"
+	accept = "application/json"
    { 
    	 :data => request.url ,
-     :cypher => request.url + "cypher" ,
+     :cypher => request.url + "db/data/cypher" ,
 	 :relationship_index => request.url + "db/data/index/relationship" ,
 	 :node => request.url + "db/data/node" ,
 	 :relationship_types => request.url + "db/data/relationship/types" ,
