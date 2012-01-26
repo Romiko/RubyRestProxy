@@ -9,7 +9,7 @@ before do
     content_type 'application/json'
   end
 
-post '/raw-gremlin' do
+post '/db/data/ext/GremlinPlugin/graphdb/execute_script' do
     data = request.body.read;
     begin
       data = JSON.parse(data)
@@ -23,6 +23,6 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver and neo4jClient RootApiResponse
  
 get '/' do  
-	RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
-
+	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
+	response.sub("http://c05f56903.hosted.neo4j.org:7006", "http://neo4jorbust.heroku.com")
 end
