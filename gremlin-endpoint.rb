@@ -19,14 +19,14 @@ end
  
 get '/' do
    { 
+   	 :data => request.url ,
      :cypher => request.url + "cypher" ,
-	 :relationship_index => request.url + "/db/data/index/relationship" ,
-	 :node => request.url + "/db/data/node" ,
-	 :relationship_types => request.url + "/db/data/relationship/types" ,
-	 :batch => request.url + "/db/data/batch" ,
-	 :extensions_info => request.url + "/db/data/ext" ,
-	 :node_index => request.url + "/db/data/index/node" ,
-     :extensions => { :GremlinPlugin => { :execute_script => request.url + "raw-gremlin" }} ,
-	 :data => request.url
+	 :relationship_index => request.url + "db/data/index/relationship" ,
+	 :node => request.url + "db/data/node" ,
+	 :relationship_types => request.url + "db/data/relationship/types" ,
+	 :batch => request.url + "db/data/batch" ,
+	 :extensions_info => request.url + "db/data/ext" ,
+	 :node_index => request.url + "db/data/index/node" ,
+     :extensions => { :GremlinPlugin => { :execute_script => request.url + "raw-gremlin" }}
    }.to_json
 end
