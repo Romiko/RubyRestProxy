@@ -18,5 +18,5 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver
  
 get '/' do
-	rest["/db/data"].get
+	rest["/db/data"].get, {:content_type=>"application/json"}
 end
