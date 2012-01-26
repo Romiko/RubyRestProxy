@@ -33,7 +33,7 @@ post '/db/data/batch' do
       data = JSON.parse(data)
     rescue
     end 
-    data = {:query => data } unless data.kind_of?(Hash)
+    data = data unless data.kind_of?(Hash)
     rest["/db/data/batch"].post data.to_json, 
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
