@@ -24,5 +24,5 @@ end
  
 get '/' do  
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
-	response.sub("http://c05f56903.hosted.neo4j.org:7006", "http://neo4jorbust.heroku.com")
+	response.gsub("http://c05f56903.hosted.neo4j.org:7006", "http://neo4jorbust.heroku.com")
 end
