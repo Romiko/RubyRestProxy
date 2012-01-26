@@ -19,6 +19,6 @@ end
 # support some minimalistic exploration for the neo4j-jdbc driver and neo4jClient RootApiResponse
  
 get '/' do
-	RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:accept => :json, :content-type => :json}
+	RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json}, :accept => :json
 
 end
