@@ -2,6 +2,7 @@ require 'sinatra'
 require 'rest-client'
 require 'json'
 
+# Documentation on rest client http://rubydoc.info/gems/rest-client/1.6.7/frames
 rest = RestClient::Resource.new(ENV['NEO4J_URL'])
 
 post '/raw-gremlin' do
@@ -15,8 +16,8 @@ post '/raw-gremlin' do
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
 
-# support some minimalistic exploration for the neo4j-jdbc driver
+# support some minimalistic exploration for the neo4j-jdbc driver and neo4jClient RootApiResponse
  
 get '/' do
-	rest["/db/data"].get, {:content_type=>"application/json"}
+	rest["/db/data"].get,{:accept => :json}
 end
