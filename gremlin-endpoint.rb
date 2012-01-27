@@ -42,5 +42,5 @@ post '/db/data/batch' do
 end
 
 delete '/db/data/node/106' do
-	response = RestClient.delete ENV['NEO4J_URL'] + '/db/data/node/106'
+	RestClient.delete ENV['NEO4J_URL'] + '/db/data/node/106'
 end
