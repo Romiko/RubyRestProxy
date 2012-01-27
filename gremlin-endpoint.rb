@@ -27,7 +27,7 @@ get '/' do
 end
 
 get '/db/data/node/:nodeid/relationships/:relationships' do
-	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:name] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
+	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
 end
 
 post '/db/data/batch' do
