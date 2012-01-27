@@ -43,6 +43,6 @@ post '/db/data/batch' do
 end
 
 delete '/db/data/node/:nodeid' do
-	response = RestClient.delete address ENV['NEO4J_URL'] + '/db/data/node/' + params[:nodeid]
+	response = rest.delete[ENV['NEO4J_URL'] + '/db/data/node/' + params[:nodeid]]
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 end
