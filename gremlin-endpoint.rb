@@ -44,7 +44,7 @@ end
 
 delete '/db/data/node/:nodeid' do
 	begin
-	response = rest.del["/db/data/node/" + params[:nodeid]]
+	response = rest.delete["/db/data/node/" + params[:nodeid]]
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 	rescue Exception => e 
 	e.message  
