@@ -27,8 +27,7 @@ get '/' do
 end
 
 get 'db/data/*' do
-values = params[:splat]
-response = RestClient.get ENV['NEO4J_URL'] + '/db/data/' + values[0] , {:content_type => :json, :accept => :json}
+response = RestClient.get ENV['NEO4J_URL'] + '/db/data' + request.path_info , {:content_type => :json, :accept => :json}
 end
 
 post '/db/data/batch' do
