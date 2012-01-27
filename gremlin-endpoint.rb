@@ -6,7 +6,7 @@ require 'json'
 rest = RestClient::Resource.new(ENV['NEO4J_URL'])
 
 before do
-    content_type 'application/json'
+    #content_type 'application/json'
   end
 
 post '/db/data/ext/GremlinPlugin/graphdb/execute_script' do
@@ -42,6 +42,5 @@ post '/db/data/batch' do
 end
 
 delete '/db/data/node/:nodeid' do
-	address = ENV['NEO4J_URL'] + '/db/data/node/' + params[:nodeid]
-	response = RestClient.delete address
+	response = RestClient.delete address ENV['NEO4J_URL'] + '/db/data/node/' + params[:nodeid]
 end
