@@ -45,9 +45,10 @@ end
 delete '/db/data/node/:nodeid' do
 	begin
 	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
+	address = address.gsub('409 Conflict', '')
 	response = RestClient.delete address
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 	rescue Exception => e 
-	response = 'HOST' + address + 'MESSAGE' + e.message + 'BACKTRACE' + e.backtrace.inspect
+	response = 'HOST: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
 	end
 end
