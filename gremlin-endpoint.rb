@@ -48,6 +48,6 @@ delete '/db/data/node/:nodeid' do
 	response = RestClient.delete address
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 	rescue Exception => e 
-	response = address + e.message + e.backtrace.inspect
+	response = 'HOST' + address + 'MESSAGE' + e.message + 'BACKTRACE' + e.backtrace.inspect
 	end
 end
