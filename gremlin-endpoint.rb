@@ -42,13 +42,22 @@ post '/db/data/batch' do
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
 
-delete '/db/data/node/:nodeid' do
+delete '/db/data/relationship/:relationshipid' do
 	begin
-	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
-	address = address.gsub('409 Conflict', '')
+	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:relationshipid]
 	response = RestClient.delete address
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 	rescue Exception => e 
-	response = 'HOST: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+	response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+	end
+end
+
+delete '/db/data/node/:nodeid' do
+	begin
+	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
+	response = RestClient.delete address
+	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
+	rescue Exception => e 
+	response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
 	end
 end
