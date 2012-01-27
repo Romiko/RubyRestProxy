@@ -26,7 +26,7 @@ get '/' do
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 end
 
-get 'db/data/*' do
+get '/db/data/*' do
 response = RestClient.get ENV['NEO4J_URL'] + '/db/data/' + params[:splat], {:content_type => :json, :accept => :json}
 end
 
