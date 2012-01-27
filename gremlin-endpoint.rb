@@ -6,7 +6,7 @@ require 'json'
 rest = RestClient::Resource.new(ENV['NEO4J_URL'])
 
 before do
-    #content_type 'application/json'
+    content_type 'application/json'
   end
 
 post '/db/data/ext/GremlinPlugin/graphdb/execute_script' do
