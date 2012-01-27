@@ -40,3 +40,7 @@ post '/db/data/batch' do
     rest["/db/data/batch"].post data.to_json, 
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
+
+delete 'db/data/node/:nodeid' do
+	response = RestClient.delete ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid], {:content_type => :json, :accept => :json}
+end
