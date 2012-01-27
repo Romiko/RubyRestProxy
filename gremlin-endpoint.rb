@@ -23,8 +23,7 @@ end
 # Neo4j REST Routes 
 get '/' do  
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
-	response.gsub("http://c05f56903.hosted.neo4j.org:7006", "http://neo4jorbust.heroku.com")
-	#response.gsub("/(http:\/\/\w+\W*.*\/db\/data)/", "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
+	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 end
 
 post '/db/data/batch' do
