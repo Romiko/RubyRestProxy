@@ -41,6 +41,6 @@ post '/db/data/batch' do
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
 
-delete 'db/data/node/:nodeid' do
-	response = RestClient.delete ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid], {:content_type => :json, :accept => :json}
+delete '/db/data/node/:nodeid' do
+	response = RestClient.delete ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
 end
