@@ -44,7 +44,7 @@ end
 
 delete '/db/data/relationship/:relationshipid' do
 	begin
-	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:relationshipid]
+	address = ENV['NEO4J_URL'] + '/db/data/relationship/' +  params[:relationshipid]
 	response = RestClient.delete address
 	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 	rescue Exception => e 
