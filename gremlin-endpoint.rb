@@ -20,8 +20,7 @@ post '/db/data/ext/GremlinPlugin/graphdb/execute_script' do
                  {:accept=>"application/json",:content_type=>"application/json"}
 end
 
-# support some minimalistic exploration for the neo4j-jdbc driver and neo4jClient RootApiResponse
- 
+# Neo4j REST Routes 
 get '/' do  
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
 	response.gsub("/(http:\/\/\w+\W*.*\/db\/data)/", "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
