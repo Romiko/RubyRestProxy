@@ -23,12 +23,12 @@ end
 # Neo4j REST Routes 
 get '/' do  
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/', {:content_type => :json, :accept => :json}
-	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
+	ReplaceHostNameWithProxyHostName(response)
 end
 
 get '/db/data/node/:nodeid/relationships/:relationships' do
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
-	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
+	ReplaceHostNameWithProxyHostName(response)
 end
 
 post '/db/data/batch' do
@@ -46,9 +46,19 @@ delete '/db/data/relationship/:relationshipid' do
 	begin
 	address = ENV['NEO4J_URL'] + '/db/data/relationship/' +  params[:relationshipid]
 	response = RestClient.delete address
-	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
+
+	if response == ""
+	status 204
+	end
+
 	rescue Exception => e 
-	response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		if response.include? "404"
+		status 404
+		end
+		if response.include? "409"
+		status 409
+		end
 	end
 end
 
@@ -56,8 +66,22 @@ delete '/db/data/node/:nodeid' do
 	begin
 	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
 	response = RestClient.delete address
-	response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
-	rescue Exception => e 
-	response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+	
+	if response == ""
+	status 204
 	end
+	
+	rescue Exception => e 
+		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		if response.include? "404"
+		status 404
+		end
+		if response.include? "409"
+		status 409
+		end
+	end
+end
+
+def ReplaceHostNameWithProxyHostName(response)
+   response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
 end
