@@ -36,7 +36,29 @@ get '/db/data/node/:nodeid/properties' do
 	ReplaceHostNameWithProxyHostName(response)
 end
 
-
+put '/db/data/node/:nodeid/properties' do
+	begin
+	data = request.body.read;
+    data = JSON.parse(data)
+    data = {:query => data } unless data.kind_of?(Hash)
+	address = "/db/data/node/" +  params[:nodeid] + "/properties"
+    response = rest[address].put data.to_json, 
+                 {:accept=>"application/json",:content_type=>"application/json"}
+				 
+	if response == ""
+	status 204
+	end
+	
+	rescue Exception => e 
+		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		if response.include? "404"
+		status 404
+		end
+		if response.include? "409"
+		status 409
+		end
+	end	
+end
 
 get '/db/data/node/:nodeid/relationships/:relationships' do
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
