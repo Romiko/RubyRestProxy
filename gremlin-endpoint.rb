@@ -26,6 +26,11 @@ get '/' do
 	ReplaceHostNameWithProxyHostName(response)
 end
 
+get '/db/data/node/:nodeid' do
+	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid], {:content_type => :json, :accept => :json}
+	ReplaceHostNameWithProxyHostName(response)
+end
+
 get '/db/data/node/:nodeid/relationships/:relationships' do
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
 	ReplaceHostNameWithProxyHostName(response)
@@ -81,6 +86,8 @@ delete '/db/data/node/:nodeid' do
 		end
 	end
 end
+
+# functions
 
 def ReplaceHostNameWithProxyHostName(response)
    response.gsub(/(http:\/\/\w+\W*.*\/db\/data)/, "http://" + ENV['APP_NAME']  + ".heroku.com/db/data")
