@@ -31,6 +31,11 @@ get '/db/data/node/:nodeid' do
 	ReplaceHostNameWithProxyHostName(response)
 end
 
+get '/db/data/node/:nodeid/properties' do
+	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/properties', {:content_type => :json, :accept => :json}
+	ReplaceHostNameWithProxyHostName(response)
+end
+
 get '/db/data/node/:nodeid/relationships/:relationships' do
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
 	ReplaceHostNameWithProxyHostName(response)
