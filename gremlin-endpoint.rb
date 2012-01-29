@@ -68,9 +68,7 @@ post '/db/data/node/:nodeid/relationships' do
 	rest["/db/data/node/" + params[:nodeid] + "/relationships"].post data.to_json, 
 				 {:accept=>"application/json",:content_type=>"application/json"}
 				 
-	if response.include? "Location"
-		status 201
-		end
+	status 201
 		
 	rescue Exception => e 
 		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
