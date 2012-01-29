@@ -64,11 +64,24 @@ post '/db/data/node/:nodeid/relationships' do
     data = request.body.read;
     begin
       data = JSON.parse(data)
-    rescue
-	end
 	data = data unless data.kind_of?(Hash)
 	rest["/db/data/node/" + params[:nodeid] + "/relationships"].post data.to_json, 
 				 {:accept=>"application/json",:content_type=>"application/json"}
+				 
+	if response.include? "Location"
+		status 201
+		end
+		
+	rescue Exception => e 
+		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		if response.include? "404"
+		status 404
+		end
+		if response.include? "400"
+		status 400
+		end
+	end			
+	
 end
 
 get '/db/data/node/:nodeid/relationships/:relationships' do
