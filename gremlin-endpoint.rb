@@ -60,6 +60,17 @@ put '/db/data/node/:nodeid/properties' do
 	end	
 end
 
+post '/db/data/node/:nodeid/relationships' do
+    data = request.body.read;
+    begin
+      data = JSON.parse(data)
+    rescue
+	end
+	data = data unless data.kind_of?(Hash)
+	rest["/db/data/node/" + params[:nodeid] + "/relationships"].post data.to_json, 
+				 {:accept=>"application/json",:content_type=>"application/json"}
+end
+
 get '/db/data/node/:nodeid/relationships/:relationships' do
 	response = RestClient.get ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid] + '/relationships/' + params[:relationships], {:content_type => :json, :accept => :json}
 	ReplaceHostNameWithProxyHostName(response)
