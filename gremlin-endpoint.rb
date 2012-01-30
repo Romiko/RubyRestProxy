@@ -118,6 +118,27 @@ delete '/db/data/relationship/:relationshipid' do
 	end
 end
 
+delete '/relationship/:relationshipid' do
+	begin
+	address = ENV['NEO4J_URL'] + '/db/data/relationship/' +  params[:relationshipid]
+	response = RestClient.delete address
+
+	if response == ""
+	status 204
+	end
+
+	rescue Exception => e 
+		response = 'HOSTRESOURCE: ' + address + ' MESSAGE: ' + e.message + ' BACKTRACE: ' + e.backtrace.inspect
+		if response.include? "404"
+		status 404
+		end
+		if response.include? "409"
+		status 409
+		end
+	end
+end
+
+
 delete '/db/data/node/:nodeid' do
 	begin
 	address = ENV['NEO4J_URL'] + '/db/data/node/' +  params[:nodeid]
